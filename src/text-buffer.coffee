@@ -532,13 +532,22 @@ class TextBuffer
   # Returns a {Point}.
   positionForCharacterIndex: (offset) ->
     offset = Math.max(0, offset)
-    offset = Math.min(@getMaxCharacterIndex(), offset)
+    offset = Math.min(@getText().length, offset)
 
-    {rows, characters} = @offsetIndex.totalTo(offset, 'characters')
-    if rows > @getLastRow()
+    row = 0
+    column = 0
+    for line in @lines
+      if line.length < offset
+        offset -= line.length + @lineEndingForRow(row).length
+        row++
+      else
+        column = offset
+        break
+
+    if row > @getLastRow()
       @getEndPosition()
     else
-      new Point(rows, offset - characters)
+      new Point(row, column)
 
   # Public: Get the length of the buffer in characters.
   #
