@@ -32,7 +32,8 @@ class Range
   # Returns: A {Range} based on the given object.
   @fromObject: (object, copy) ->
     if Array.isArray(object)
-      new this(object...)
+      [pointA, pointB] = object
+      new this(pointA, pointB)
     else if object instanceof this
       if copy then object.copy() else object
     else
