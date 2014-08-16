@@ -322,8 +322,8 @@ class Marker
     @range.compare(other.range)
 
   # Deprecated: Use ::matchesParams instead
-  matchesAttributes: (args...) ->
-    @matchesParams(args...)
+  matchesAttributes: (attributes) ->
+    @matchesParams(attributes)
 
   # Returns whether this marker matches the given parameters. The parameters
   # are the same as {MarkerManager::findMarkers}.
